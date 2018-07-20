@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<head>
+   <title>Irrigatie</title>
+   
+
+   
+    <style type="text/css">
+        table, th, td {
+            border: 1px;
+            border-collapse: collapse;
+            font-family: verdana;
+            font-size: 32px;
+        }
+    
+        td {
+            padding: 10px;
+
+        }
+        
+        tr.hoverover:hover{
+            background-color: #cef9ca;
+        }
+        
+        button, input {
+          padding: 50px 50px;
+          font-family: verdana;
+          font-size: 32px;
+          line-height: 50px;
+
+          -webkit-appearance: none;
+        }
+
+        button_on, input_on {
+          padding: 50px 50px;
+          font-family: verdana;
+          font-size: 32px;
+          line-height: 50px;
+
+          -webkit-appearance: none;
+
+          background-color: #cef9ca;
+        }
+
+        button_off, input_off {
+          padding: 50px 50px;
+          font-family: verdana;
+          font-size: 32px;
+          line-height: 50px;
+
+          -webkit-appearance: none;
+
+          background-color: #fc9292;
+        }
+
+        #wrapper {
+            top: 10%;
+
+            border: 1px solid #ccc;
+            background-color: #f3f3f3;
+        }
+        
+
+    </style>
+   
+   
+</head>
+
+<body>
+   <center>
+   
+   
+   <div id="wrapper">
+   
+    <table>
+    <tr>
+        <td align="center"><b>Irrigatie</b></td>
+        <td align="center"><b>Onderhoud</b></td>
+    </tr>
+    <tr>
+    <td>
+        
+        <table>
+        <tr class="hoverover">
+          <td align="left">Sproeiers links</td>
+          <td align="right">
+          
+            {% if pump == true and valve_left == true %}
+                <input type="button" class ="button_off" onclick="location.href='/left/off';" value="ZET UIT" />
+            {% else %}
+                <input type="button" class ="button_on" onclick="location.href='/left/on';" value="ZET AAN" />
+            {% endif %}
+            
+          </td> 
+        </tr>
+        
+        <tr class="hoverover">
+          <td align="left">Sproeiers rechts</td>
+          <td align="right">
+          
+            {% if pump == true and valve_right == true %}
+                <input type="button" onclick="location.href='/right/off';" value="ZET UIT" />
+            {% else %}
+                <input type="button" onclick="location.href='/right/on';" value="ZET AAN" />
+            {% endif %}
+            
+          </td>
+          
+        </tr>
+        <tr class="hoverover">
+          <td align="left">Sproeiers druppelslang</td>
+          <td align="right">
+          
+            {% if pump == true and valve_drip == true %}
+                <input type="button" onclick="location.href='/drip/off';" value="ZET UIT" />
+            {% else %}
+                <input type="button" onclick="location.href='/drip/on';" value="ZET AAN" />
+            {% endif %}
+            
+          </td> 
+        </tr>  
+        </table>
+    
+    </td>    
+    <td>    
+        
+        <table>
+        <tr class="hoverover">
+          <td align="left">Leeg pompen</td>
+          <td align="right">
+          
+                <input type="button" onclick="location.href='/sewage/on';" value="ZET AAN" />
+            
+          </td>
+        <tr class="hoverover">
+          <td align="left">Filter schoon maken</td>
+          <td align="right">
+          
+                <input type="button" onclick="location.href='/clean/on';" value="ZET AAN" />
+            
+          </td> 
+        </tr>
+        <tr class="hoverover">
+          <td align="left">Bijvullen</td>
+          <td align="right">
+          
+                <input type="button" onclick="location.href='refill/on';" value="ZET AAN" />
+            
+          </td> 
+        </tr>
+        </table>
+    
+    </td>
+    </tr>
+    </table>
+    
+    </div>
+    
+    </center>
+
+</body>
+</html>
