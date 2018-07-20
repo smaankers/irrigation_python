@@ -118,6 +118,42 @@ def test_Timer_pump_GIVEN_started_WHEN_stopped_THEN_closes_valve():
 
     pump.stop()
 
+##################
+
+def test_Timer_refill_GIVEN_initialized_WHEN_nothing_THEN_returns_not_running():
+    mock = get_mock_io_irrigation()
+
+    refill = Timed_valve_refill(mock)
+
+    assert refill.is_running() is False
+
+def test_Timer_refill_GIVEN_stopped_WHEN_start_THEN_opens_valve():
+    mock = get_mock_io_irrigation()
+
+    refill = Timed_valve_refill(mock)
+
+    refill.start(5)
+
+    mock.set_valve_refill.assert_called_with(True)
+    assert refill.is_running() is True
+
+    refill.stop()
+
+def test_Timer_refill_GIVEN_started_WHEN_stopped_THEN_closes_valve():
+    mock = get_mock_io_irrigation()
+
+    refill = Timed_valve_refill(mock)
+
+    refill.start(5)
+    refill.stop()
+
+    expectations = [call(True),
+                    call(False)]
+
+    mock.set_valve_refill.assert_has_calls(expectations, any_order=False)
+    assert refill.is_running() is False
+
+    refill.stop()
 
 
 

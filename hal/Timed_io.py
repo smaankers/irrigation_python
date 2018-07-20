@@ -39,3 +39,16 @@ class Timed_pump(hal.Timed.Timed):
     def on_stopped(self):
         self._io_irrigation.set_pump(False)
 
+
+class Timed_valve_refill(hal.Timed.Timed):
+
+    def __init__(self, io_irrigation):
+        super().__init__(callback_object=self)
+        self._io_irrigation = io_irrigation
+
+    def on_started(self):
+        self._io_irrigation.set_valve_refill(True)
+
+    def on_stopped(self):
+        self._io_irrigation.set_valve_refill(False)
+

@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <head>
    <title>Irrigatie</title>
-   
 
-   
     <style type="text/css">
         table, th, td {
             border: 1px;
@@ -58,11 +56,8 @@
             border: 1px solid #ccc;
             background-color: #f3f3f3;
         }
-        
 
     </style>
-   
-   
 </head>
 
 <body>
@@ -143,7 +138,11 @@
           <td align="left">Bijvullen</td>
           <td align="right">
           
-                <input type="button" onclick="location.href='refill/on';" value="ZET AAN" />
+            {% if valve_refill == true %}
+                <input type="button" class ="button_off" onclick="location.href='/refill/off';" value="ZET UIT" />
+            {% else %}
+                <input type="button" class ="button_on" onclick="location.href='/refill/on';" value="ZET AAN" />
+            {% endif %}
             
           </td> 
         </tr>
