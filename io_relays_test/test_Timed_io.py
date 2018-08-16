@@ -2,7 +2,7 @@ import pytest
 from unittest.mock import Mock, call
 import time
 
-from hal.Timed_io import *
+from io_relays.Timed_io import *
 
 
 def get_mock_io_irrigation():
@@ -83,6 +83,43 @@ def test_Timer_valve_right_GIVEN_started_WHEN_stopped_THEN_closes_valve():
 
 ##################
 
+def test_Timer_drip_GIVEN_initialized_WHEN_nothing_THEN_returns_not_running():
+    mock = get_mock_io_irrigation()
+
+    drip = Timed_valve_drip(mock)
+
+    assert drip.is_running() is False
+
+def test_Timer_drip_GIVEN_stopped_WHEN_start_THEN_opens_valve():
+    mock = get_mock_io_irrigation()
+
+    drip = Timed_valve_drip(mock)
+
+    drip.start(5)
+
+    mock.set_valve_drip.assert_called_with(True)
+    assert drip.is_running() is True
+
+    drip.stop()
+
+def test_Timer_drip_GIVEN_started_WHEN_stopped_THEN_closes_valve():
+    mock = get_mock_io_irrigation()
+
+    drip = Timed_valve_drip(mock)
+
+    drip.start(5)
+    drip.stop()
+
+    expectations = [call(True),
+                    call(False)]
+
+    mock.set_valve_drip.assert_has_calls(expectations, any_order=False)
+    assert drip.is_running() is False
+
+    drip.stop()
+
+##################
+
 def test_Timer_pump_GIVEN_initialized_WHEN_nothing_THEN_returns_not_running():
     mock = get_mock_io_irrigation()
 
@@ -156,6 +193,42 @@ def test_Timer_refill_GIVEN_started_WHEN_stopped_THEN_closes_valve():
     refill.stop()
 
 
+##################
+
+def test_Timer_filter_GIVEN_initialized_WHEN_nothing_THEN_returns_not_running():
+    mock = get_mock_io_irrigation()
+
+    filter = Timed_valve_filter(mock)
+
+    assert filter.is_running() is False
+
+def test_Timer_filter_GIVEN_stopped_WHEN_start_THEN_opens_valve():
+    mock = get_mock_io_irrigation()
+
+    filter = Timed_valve_filter(mock)
+
+    filter.start(5)
+
+    mock.set_valve_filter.assert_called_with(True)
+    assert filter.is_running() is True
+
+    filter.stop()
+
+def test_Timer_filter_GIVEN_started_WHEN_stopped_THEN_closes_valve():
+    mock = get_mock_io_irrigation()
+
+    filter = Timed_valve_filter(mock)
+
+    filter.start(5)
+    filter.stop()
+
+    expectations = [call(True),
+                    call(False)]
+
+    mock.set_valve_filter.assert_has_calls(expectations, any_order=False)
+    assert filter.is_running() is False
+
+    filter.stop()
 
 
 

@@ -75,6 +75,7 @@
     <td>
         
         <table>
+
         <tr class="hoverover">
           <td align="left">Sproeiers links</td>
           <td align="right">
@@ -99,8 +100,8 @@
             {% endif %}
             
           </td>
-          
         </tr>
+
         <tr class="hoverover">
           <td align="left">Sproeiers druppelslang</td>
           <td align="right">
@@ -119,21 +120,27 @@
     <td>    
         
         <table>
+
         <tr class="hoverover">
           <td align="left">Leeg pompen</td>
           <td align="right">
-          
                 <input type="button" onclick="location.href='/sewage/on';" value="ZET AAN" />
-            
           </td>
+        </tr>
+
         <tr class="hoverover">
           <td align="left">Filter schoon maken</td>
           <td align="right">
-          
-                <input type="button" onclick="location.href='/clean/on';" value="ZET AAN" />
-            
+
+            {% if valve_filter == true %}
+                <input type="button" class ="button_off" onclick="location.href='/filter/off';" value="ZET UIT" />
+            {% else %}
+                <input type="button" class ="button_on" onclick="location.href='/filter/on';" value="ZET AAN" />
+            {% endif %}
+
           </td> 
         </tr>
+
         <tr class="hoverover">
           <td align="left">Bijvullen</td>
           <td align="right">
