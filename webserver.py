@@ -30,7 +30,7 @@ def action(group, status):
     
     message = ""
     irrigate_in_seconds = 10 * 60
-    refill_in_seconds = 120 * 60
+    refill_in_seconds = 90 * 60
 
     if group == "left":
         if status == "on":
