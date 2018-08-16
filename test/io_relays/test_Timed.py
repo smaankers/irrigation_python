@@ -2,7 +2,7 @@ import pytest
 from unittest.mock import Mock, call
 import time
 
-from ..io_relays.Timed import *
+from io_relays.Timed import *
 
 
 def get_mock_startable_stoppable():

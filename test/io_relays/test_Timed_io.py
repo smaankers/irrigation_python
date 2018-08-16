@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import Mock, call
-import time
+
 
 from io_relays.Timed_io import *
 
