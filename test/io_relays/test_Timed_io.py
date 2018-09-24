@@ -230,6 +230,41 @@ def test_Timer_filter_GIVEN_started_WHEN_stopped_THEN_closes_valve():
 
     filter.stop()
 
+##################
 
+def test_Timer_sensors_GIVEN_initialized_WHEN_nothing_THEN_returns_not_running():
+    mock = get_mock_io_irrigation()
+
+    sensors = Timed_sensors(mock)
+
+    assert sensors.is_running() is False
+
+def test_Timer_sensors_GIVEN_stopped_WHEN_start_THEN_opens_valve():
+    mock = get_mock_io_irrigation()
+
+    sensors = Timed_sensors(mock)
+
+    sensors.start(5)
+
+    mock.set_sensors.assert_called_with(True)
+    assert sensors.is_running() is True
+
+    sensors.stop()
+
+def test_Timer_sensors_GIVEN_started_WHEN_stopped_THEN_closes_valve():
+    mock = get_mock_io_irrigation()
+
+    sensors = Timed_sensors(mock)
+
+    sensors.start(5)
+    sensors.stop()
+
+    expectations = [call(True),
+                    call(False)]
+
+    mock.set_sensors.assert_has_calls(expectations, any_order=False)
+    assert sensors.is_running() is False
+
+    sensors.stop()
 
 

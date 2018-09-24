@@ -6,14 +6,14 @@ class IO_irrigation(object):
     def __init__(self):
 
         self.__pin_list = 	{
-                 5 : 	{'name'	: 'pump',		'state' : False},
-                11 : 	{'name'	: 'sensors',		'state' : False},
-                 4 : 	{'name'	: 'valve sewage',	'state' : False},
-                17 : 	{'name'	: 'valve refill',	'state' : False},
-                27 : 	{'name'	: 'valve filter',	'state' : False},
-                22 : 	{'name'	: 'valve right',	'state' : False},
-                10 : 	{'name'	: 'valve drip',	'state' : False},
-                 9 : 	{'name'	: 'valve left',	'state' : False},
+                 5 : 	{'name'	: 'pump',		  'state' : False},
+                11 : 	{'name'	: 'sensors',      'state' : False},
+                 4 : 	{'name'	: 'valve sewage', 'state' : False},
+                17 : 	{'name'	: 'valve refill', 'state' : False},
+                27 : 	{'name'	: 'valve filter', 'state' : False},
+                22 : 	{'name'	: 'valve right',  'state' : False},
+                10 : 	{'name'	: 'valve drip',   'state' : False},
+                 9 : 	{'name'	: 'valve left',   'state' : False},
                 }
 
         for pin_id in self.__pin_list:

@@ -78,3 +78,14 @@ class Timed_valve_filter(io_relays.Timed.Timed):
     def on_stopped(self):
         self._io_irrigation.set_valve_filter(False)
 
+class Timed_sensors(io_relays.Timed.Timed):
+
+    def __init__(self, io_irrigation):
+        super().__init__(callback_object=self)
+        self._io_irrigation = io_irrigation
+
+    def on_started(self):
+        self._io_irrigation.set_sensors(True)
+
+    def on_stopped(self):
+        self._io_irrigation.set_sensors(False)

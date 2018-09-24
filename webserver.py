@@ -10,6 +10,7 @@ import io_relays.Timed_io
 app          = Flask(__name__)
 io           = io_relays.io_irrigation.IO_irrigation()
 pump         = io_relays.Timed_io.Timed_pump(io)
+sensors      = io_relays.Timed_io.Timed_sensors(io)
 valve_left   = io_relays.Timed_io.Timed_valve_left(io)
 valve_right  = io_relays.Timed_io.Timed_valve_right(io)
 valve_drip   = io_relays.Timed_io.Timed_valve_drip(io)
@@ -20,6 +21,7 @@ valve_filter = io_relays.Timed_io.Timed_valve_filter(io)
 def home():
    templateData = {
         'pump'         : pump.is_running(),
+        'sensors'      : sensors.is_running(),
         'valve_left'   : valve_left.is_running(),
         'valve_right'  : valve_right.is_running(),
         'valve_drip'   : valve_drip.is_running(),
@@ -67,8 +69,10 @@ def action(group, status):
     elif group == "refill":
         if status == "on":
             valve_refill.start(refill_in_seconds)
+            sensors.start(refill_in_seconds)
 
         elif status == "off":
+            sensors.stop()
             valve_refill.stop()
 
     elif group == "filter":
