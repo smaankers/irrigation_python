@@ -16,6 +16,7 @@ valve_right  = io_relays.Timed_io.Timed_valve_right(io)
 valve_drip   = io_relays.Timed_io.Timed_valve_drip(io)
 valve_refill = io_relays.Timed_io.Timed_valve_refill(io)
 valve_filter = io_relays.Timed_io.Timed_valve_filter(io)
+valve_sewage = io_relays.Timed_io.Timed_valve_sewage(io)
 
 @app.route("/")
 def home():
@@ -27,6 +28,7 @@ def home():
         'valve_drip'   : valve_drip.is_running(),
         'valve_refill' : valve_refill.is_running(),
         'valve_filter' : valve_filter.is_running(),
+        'valve_sewage' : valve_sewage.is_running()
       }
    
    return render_template('main.html', **templateData)
@@ -38,6 +40,7 @@ def action(group, status):
     refill_in_seconds   = 90 * 60
     drip_in_seconds     = 90 * 60
     filter_in_seconds   =  2 * 60
+    sewage_in_seconds   = 15 * 60
 
     if group == "left":
         if status == "on":
@@ -82,6 +85,15 @@ def action(group, status):
 
         elif status == "off":
             valve_filter.stop()
+            pump.stop()
+
+    elif group == "sewage":
+        if status == "on":
+            valve_sewage.start(sewage_in_seconds)
+            pump.start(sewage_in_seconds)
+
+        elif status == "off":
+            valve_sewage.stop()
             pump.stop()
 
     return redirect(url_for('home'))

@@ -232,6 +232,43 @@ def test_Timer_filter_GIVEN_started_WHEN_stopped_THEN_closes_valve():
 
 ##################
 
+def test_Timer_sewage_GIVEN_initialized_WHEN_nothing_THEN_returns_not_running():
+    mock = get_mock_io_irrigation()
+
+    sewage = Timed_valve_sewage(mock)
+
+    assert sewage.is_running() is False
+
+def test_Timer_sewage_GIVEN_stopped_WHEN_start_THEN_opens_valve():
+    mock = get_mock_io_irrigation()
+
+    sewage = Timed_valve_sewage(mock)
+
+    sewage.start(5)
+
+    mock.set_valve_sewage.assert_called_with(True)
+    assert sewage.is_running() is True
+
+    sewage.stop()
+
+def test_Timer_sewage_GIVEN_started_WHEN_stopped_THEN_closes_valve():
+    mock = get_mock_io_irrigation()
+
+    sewage = Timed_valve_sewage(mock)
+
+    sewage.start(5)
+    sewage.stop()
+
+    expectations = [call(True),
+                    call(False)]
+
+    mock.set_valve_sewage.assert_has_calls(expectations, any_order=False)
+    assert sewage.is_running() is False
+
+    sewage.stop()
+
+##################
+
 def test_Timer_sensors_GIVEN_initialized_WHEN_nothing_THEN_returns_not_running():
     mock = get_mock_io_irrigation()
 

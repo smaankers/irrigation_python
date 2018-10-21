@@ -124,7 +124,13 @@
         <tr class="hoverover">
           <td align="left">Leeg pompen</td>
           <td align="right">
-                <input type="button" onclick="location.href='/sewage/on';" value="ZET AAN" />
+
+            {% if valve_sewage == true %}
+                <input type="button" class ="button_off" onclick="location.href='/sewage/off';" value="ZET UIT" />
+            {% else %}
+                <input type="button" class ="button_on" onclick="location.href='/sewage/on';" value="ZET AAN" />
+            {% endif %}
+
           </td>
         </tr>
 
