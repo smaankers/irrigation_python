@@ -18,17 +18,28 @@ valve_refill = io_relays.Timed_io.Timed_valve_refill(io)
 valve_filter = io_relays.Timed_io.Timed_valve_filter(io)
 valve_sewage = io_relays.Timed_io.Timed_valve_sewage(io)
 
+irrigate_in_seconds =  9 * 60
+refill_in_seconds   = 90 * 60
+drip_in_seconds     = 90 * 60
+filter_in_seconds   =  2 * 60
+sewage_in_seconds   = 15 * 60
+
 @app.route("/")
 def home():
    templateData = {
-        'pump'         : pump.is_running(),
-        'sensors'      : sensors.is_running(),
-        'valve_left'   : valve_left.is_running(),
-        'valve_right'  : valve_right.is_running(),
-        'valve_drip'   : valve_drip.is_running(),
-        'valve_refill' : valve_refill.is_running(),
-        'valve_filter' : valve_filter.is_running(),
-        'valve_sewage' : valve_sewage.is_running()
+        'pump'                : pump.is_running(),
+        'sensors'             : sensors.is_running(),
+        'valve_left'          : valve_left.is_running(),
+        'valve_right'         : valve_right.is_running(),
+        'valve_drip'          : valve_drip.is_running(),
+        'valve_refill'        : valve_refill.is_running(),
+        'valve_filter'        : valve_filter.is_running(),
+        'valve_sewage'        : valve_sewage.is_running(),
+        'irrigate_in_minutes' : int(irrigate_in_seconds / 60),
+        'refill_in_minutes'   : int(refill_in_seconds / 60),
+        'drip_in_minutes'     : int(drip_in_seconds / 60),
+        'filter_in_minutes'   : int(filter_in_seconds / 60),
+        'sewage_in_minutes'   : int(sewage_in_seconds / 60),
       }
    
    return render_template('main.html', **templateData)
@@ -36,11 +47,7 @@ def home():
 @app.route("/<group>/<status>")
 def action(group, status):
 
-    irrigate_in_seconds = 10 * 60
-    refill_in_seconds   = 90 * 60
-    drip_in_seconds     = 90 * 60
-    filter_in_seconds   =  2 * 60
-    sewage_in_seconds   = 15 * 60
+
 
     if group == "left":
         if status == "on":
